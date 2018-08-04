@@ -1,0 +1,7 @@
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://oms-hr:oms-hr@114.115.138.15:27017/oms
+  thymeleaf:
+    cache: false
