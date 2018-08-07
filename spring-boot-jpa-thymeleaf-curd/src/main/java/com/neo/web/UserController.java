@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @RequestMapping("/toEdit")
-    public String toEdit(Model model,Long id) {
+    public String toEdit(Model model,String id) {
         User user=userService.findUserById(id);
         model.addAttribute("user", user);
         return "user/userEdit";
@@ -56,7 +56,7 @@ public class UserController {
 
 
     @RequestMapping("/delete")
-    public String delete(Long id) {
+    public String delete(String id) {
         userService.delete(id);
         return "redirect:/list";
     }
