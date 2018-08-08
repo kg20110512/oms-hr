@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>userList</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap styles -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!-- Generic page styles -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" th:href="@{/css/jquery.fileupload.css}">
+
+</head>
+<body class="container">
+<br/>
+<h1>attachment list</h1>
+<br/><br/>
+<div class="with:80%">
+    <input th:hidden="userid" th:value="${userid}" id="userid">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>name</th>
+            <th>userid</th>
+            <th>delete</th>
+            <!--<th>Delete</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="atm,row : ${atms}">
+            <th scope="row" th:text="${row.count}">1</th>
+            <!--<td th:text="${atm.name}" th:href="@{/atm/get/${atm.id}}">neo</td>-->
+            <td><a th:href="@{/atm/{atmid}(atmid=${atm.id})}"><span th:text="${atm.name}"></span></a></td>
+            <td th:text="${atm.userid}">Otto</td>
+            <!--<td><a th:href="@{/toEdit(id=${atm.id})}">edit</a></td>-->
+            <!--<td><a th:onclick="'javascript:delatm('+${atm.id}+')'">delete</a></td>-->
+            <!--<td><a th:href="@{del/{id}(id=${atm.id})}" th:onclick="'javascript:window.location.reload()'">delete</a></td>-->
+            <td><a th:href="@{/atm/list/del/{atmid}/{userid}(atmid=${atm.id},userid=${atm.userid})}">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="form-group">
+    <div class="col-sm-2 control-label">
+        <!--<a href="/toAdd" th:href="@{/toAdd}" class="btn btn-info">add</a>-->
+
+        <br>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Select files...</span>
+            <!-- The file input field used as target for the file upload widget -->
+        <input id="fileupload" type="file" name="file" multiple>
+
+        </span>
+
+        <br>
+        <br>
+
+        <span class="btn ">
+
+        <a th:href="@{/list}" class="btn btn-info">Back</a>
+
+        </span>
+
+
+        <br>
+        <br>
+
+
+    </div>
+</div>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script th:src="@{/js/vendor/jquery.ui.widget.js}"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script th:src="@{/js/jquery.iframe-transport.js}"></script>
+<!-- The basic File Upload plugin -->
+<script th:src="@{/js/jquery.fileupload.js}"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+    'use strict';
+    /*jslint unparam: true */
+    /*global window, $ */
+    $(function () {
+        var userid = $('#userid')[0].value;
+        $('#fileupload').fileupload({
+            url: '/atm/' + userid,
+            dataType: 'json',
+            done: function (e, data) {
+                window.location.reload();
+            }
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+        function delatm(id) {
+            $.ajax({
+                url: '/atm/' + id,
+                type: 'delete',
+                success: function (data) {
+                    window.location.reload();
+                }
+            });
+        }
+
+    });
+</script>
+
+</body>
+</html>
