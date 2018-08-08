@@ -2,6 +2,20 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://oms-hr:oms-hr@114.115.138.15:27017/oms
+      uri: mongodb://oms:oms123@114.115.138.15:27017/oms
   thymeleaf:
     cache: false
+#  jackson:
+#      date-format: yyyy-MM-dd
+#      joda-date-time-format: yyyy-MM-dd
+#      time-zone: GMT+8
+file:
+  server: http://114.115.138.15:8090
+logging:
+  level:
+    org:
+      springframewok: debug
+
+
+
+

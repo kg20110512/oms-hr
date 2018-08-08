@@ -7,34 +7,89 @@
 </head>
 <body class="container">
 <br/>
-<h1>修改用户</h1>
+<h1>user modify</h1>
 <br/><br/>
 <div class="with:80%">
     <form class="form-horizontal"   th:action="@{/edit}" th:object="${user}"  method="post">
         <input type="hidden" name="id" th:value="*{id}" />
         <div class="form-group">
-            <label for="userName" class="col-sm-2 control-label">userName</label>
+            <label for="userName" class="col-sm-2 control-label">姓名</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="userName"  id="userName" th:value="*{userName}" placeholder="userName"/>
+                <input type="text" class="form-control" name="username"  id="username" th:value="*{username}" placeholder="username"/>
             </div>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <label for="password" class="col-sm-2 control-label" >Password</label>
             <div class="col-sm-10">
                 <input type="password" class="form-control" name="password" id="password"  th:value="*{password}" placeholder="Password"/>
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-sm-2 control-label">sex</label>
+            <div class="col-sm-10">
+                <!--<input type="text" class="form-control" name="sex" placeholder="sex"/>-->
+                <select class="form-control" th:name="sex" th:value="*{sex}" >
+                    <option value="male" th:if="${user.sex == user.getSex().male}" selected>male</option>
+                    <option value="female" th:if="${user.sex == user.getSex().male} " >female</option>
+                    <option value="male" th:if="${user.sex == user.getSex().female}" selected>female</option>
+                    <option value="female" th:if="${user.sex == user.getSex().female} " >male</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">phoneno</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:name="phoneno" th:value="*{phoneno}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">birthday</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" th:value="${#calendars.format(user.birthday, 'yyyy-MM-dd')}" th:name="birthday"  />
+                <!--<input type="date" class="form-control" th:value="*{birthday}" th:name="birthday"  />-->
             </div>
         </div>
         <div class="form-group">
             <label for="age" class="col-sm-2 control-label">age</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="age"  id="age" th:value="*{age}" placeholder="age"/>
+                <input type="number" class="form-control" name="age"  id="age" th:value="*{age}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">entryday</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" th:value="${#calendars.format(user.entryday, 'yyyy-MM-dd')}" th:name="entryday" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">leaveday</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" th:value="${#calendars.format(user.leaveday, 'yyyy-MM-dd')}" th:name="leaveday" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">银行卡号</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:name="bankcardno" th:value="*{bankcardno}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">开户行</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:name="bankcardbigbank" th:value="*{bankcardbigbank}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">银行</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:name="bankcardbank" th:value="*{bankcardbank}"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="submit" value="Submit" class="btn btn-info" />
                 &nbsp; &nbsp; &nbsp;
-                <a href="/toAdd" th:href="@{/list}" class="btn btn-info">Back</a>
+                <a th:href="@{/list}" class="btn btn-info">Back</a>
             </div>
 
         </div>
